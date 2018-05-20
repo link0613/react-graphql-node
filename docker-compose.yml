@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  graphql:
+    restart: always
+
+    build: docker/graphql
+
+    environment:
+        - NODE_ENV=production
+
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - ./build:/graphql-server
+
+    command: node /graphql-server/server/server.js
+
+  nginx:
+    restart: always
+
+    build: docker/nginx
+
+    links:
+      - graphql
+
+    ports:
+      - "80:80"
+
+    volumes:
+      - ./build/app:/usr/www

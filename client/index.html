@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title><%= htmlWebpackPlugin.options.title || 'Relay Fullstack'%></title>
+
+  <% if (htmlWebpackPlugin.options.mobile) { %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <% } %>
+
+  <% for (var css in htmlWebpackPlugin.files.css) { %>
+  <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+  <% } %>
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <style>
+    .ag-theme-bootstrap .ag-header-cell-menu-button .ag-icon-menu {
+      height: 40px !important;
+      line-height: 40px !important;
+      color: #fff !important;
+      opacity: 1 !important;
+    }
+    .ag-theme-bootstrap .ag-header-row {
+      background: #b0c2da;
+      line-height: 40px;
+      color: #fff;
+    }
+    .ag-theme-bootstrap .ag-header-cell-label {
+      line-height: 40px;
+    }
+    .ag-theme-bootstrap .ag-body .ag-cell {
+      line-height: 30px;
+    }
+    .ag-theme-bootstrap .ag-filter {
+      padding: 5px;
+      font-size: 0.85em;
+    }
+    .ag-theme-bootstrap .ag-filter-select {
+      margin: 0 0 5px 0 !important;
+      width: 100% !important;
+    }
+  </style>
+
+<!--
+  <style>
+    .ag-header {
+      border-bottom: 2px solid #dedede;
+    }
+
+    .ag-row {
+      border-bottom: 1px solid #efefef;
+    }
+
+    .ag-body {
+      font-size: 0.9em;
+      vertical-align: middle;
+    }
+
+    .ag-cell {
+      padding: 1px 0;
+    }
+
+    .ag-row-selected {
+      background: #efefef;
+    }
+
+    .ag-filter {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      background: #fff;
+      font-size: 0.8em;
+      padding: 10px;
+    }
+
+    .ag-filter-body {
+      padding-top: 10px;
+    }
+  </style>
+-->
+</head>
+<body class="menu-position-top full-screen with-content-panel">
+<% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
+<style>.unsupported-browser { display: none; }</style>
+<div class="unsupported-browser">
+  Sorry, your browser is not supported.  Please upgrade to
+  the latest version or switch your browser to use this site.
+  See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>
+  for options.
+</div>
+<% } %>
+
+<% if (htmlWebpackPlugin.options.appMountId) { %>
+<div id="<%= htmlWebpackPlugin.options.appMountId%>"></div>
+<% } %>
+
+<% if (htmlWebpackPlugin.options.appMountIds && htmlWebpackPlugin.options.appMountIds.length > 0) { %>
+<% for (var index in htmlWebpackPlugin.options.appMountIds) { %>
+<div id="<%= htmlWebpackPlugin.options.appMountIds[index]%>"></div>
+<% } %>
+<% } %>
+
+<% if (htmlWebpackPlugin.options.window) { %>
+<script>
+  <% for (var varName in htmlWebpackPlugin.options.window) { %>
+    window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+  <% } %>
+</script>
+<% } %>
+
+<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+<script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+<% } %>
+
+<% if (htmlWebpackPlugin.options.devServer) { %>
+<script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
+<% } %>
+
+<% if (htmlWebpackPlugin.options.googleAnalytics) { %>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <% if (htmlWebpackPlugin.options.googleAnalytics.trackingId) { %>
+    ga('create', '<%= htmlWebpackPlugin.options.googleAnalytics.trackingId%>', 'auto');
+    <% } else { throw new Error("html-webpack-template requires googleAnalytics.trackingId config"); }%>
+  <% if (htmlWebpackPlugin.options.googleAnalytics.pageViewOnLoad) { %>
+    ga('send', 'pageview');
+  <% } %>
+</script>
+<% } %>
+</body>
+</html>
