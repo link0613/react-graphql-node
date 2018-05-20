@@ -1,6 +1,5 @@
-# HX Athena
+# React-GraphQL
 
-FireEye HX Athena application.
 
 ## Installation
 
