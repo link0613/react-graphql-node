@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv sh
+
+cd /server
+
+exec node server.js --core --plugins=com.fireeye.athena.hx,com.fireeye.athena.virustotal;

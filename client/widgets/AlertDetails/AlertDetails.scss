@@ -1,0 +1,50 @@
+.table-properties {
+  width: 100%;
+  margin: 0;
+}
+.table-properties tbody > tr > th {
+  width: 35%;
+  text-overflow: ellipsis;
+}
+.table-properties tbody > tr > td {
+  width: 65%;
+}
+.table-properties tbody > tr.inner {
+  background: none !important;
+}
+.table-properties tbody > tr.inner > td {
+  width: 100%;
+  padding: 0.5rem 0 0 0;
+  border-top-color: transparent;
+  background: none !important;
+}
+.table-properties tbody .table-properties {
+  margin-bottom: 0;
+}
+.table-properties tbody .table-properties tbody tr {
+  background: none;
+}
+.table-properties tbody .table-properties tbody td {
+  background: none;
+}
+.table-properties-section {
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.3rem;
+}
+
+
+.alert-properties .badge {
+  margin-right: 0.5em;
+}
+.alert-properties .card-body {
+  margin: 0;
+  padding: 0;
+}
+
+
+.hostinfo-button {
+  margin: 0 auto;
+  font-size: 0.9em;
+  pading: 0.25em 0.5em;
+}

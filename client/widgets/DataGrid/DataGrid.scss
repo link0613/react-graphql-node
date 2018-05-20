@@ -1,0 +1,38 @@
+.ag-theme-bootstrap .datagrid-no-fixed-lineheight .ag-body .ag-cell {
+  line-height: 1.6em;
+  padding-top: 2px;
+}
+
+.ag-theme-bootstrap .ag-body {
+  background: #fff;
+}
+
+.ag-theme-bootstrap .ag-paging-panel {
+  font-size: 0.8em;
+}
+
+.ag-theme-bootstrap .ag-row-selected {
+  background: #e7e7e7;
+}
+
+.datagrid-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.datagrid-container .control-header .btn-link {
+  padding: 0 !important;
+}
+
+.datagrid-detailedfield-value {
+  font-size: 0.85em;
+  color: #7c7c7e;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.datagrid-detailedfield-value .badge {
+  font-size: 0.9em;
+}

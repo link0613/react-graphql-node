@@ -1,0 +1,249 @@
+type Alert implements Node {
+  _id: String
+  url: String
+  event_id: String
+  event_type: String
+  event_values: JSON
+  event_at: String
+  matched_at: String
+  reported_at: String
+  source: String
+  resolution: String
+
+  """ID of host where the alert has been triggered"""
+  agent: JSON
+
+  """Details of the host where the alert has been triggered"""
+  host: JSON
+  condition: JSON
+
+  """Details of the condition which has been triggered for the alert"""
+  condition_details: JSON
+  matched_source_alerts: JSON
+  title: String
+
+  """List of actions which can be performed on the entity"""
+  _actions: [JSON]
+
+  """The globally unique ID among all types"""
+  id: ID!
+}
+
+type Case implements Node {
+  _id: String
+  creator: String
+  reporter: String
+  assignee: String
+  summary: String
+  description: String
+  priority: String
+  status: String
+  resolution: String
+  created_date: String
+  updated_date: String
+  due_date: String
+  resolution_date: String
+  nodes: [JSON]
+  edges: [JSON]
+  activity: [JSON]
+  _actions: [JSON]
+
+  """The globally unique ID among all types"""
+  id: ID!
+}
+
+type Host implements Node {
+  _id: String
+
+  """
+  The partial API URL to this entity excluding the api prefix and version
+  """
+  url: String
+
+  """The number of acquisitions acquired for the host"""
+  acqs: Int
+
+  """The number of conditions that have alerted for the host"""
+  alerting_conditions: Int
+
+  """The agent version string of the host"""
+  agent_version: String
+  hostname: String
+  domain: String
+  containment_missing_software: Boolean
+
+  """Determines whether the host is queued for containment"""
+  containment_queued: Boolean
+
+  """
+  The containment state of the host (normal|contain|contain_fail|containing|contained|uncontain|uncontaining|wtfc|wtfu)
+  """
+  containment_state: String
+  timezone: String
+  gmt_offset_seconds: Int
+  primary_ip_address: String
+  primary_mac: String
+
+  """Partial Alert JSON * document, _id, and url fields"""
+  last_alert: JSON
+
+  """The time stamp of the last alert for the host"""
+  last_alert_timestamp: String
+  last_exploit_block: String
+  last_exploit_block_timestamp: String
+
+  """The time stamp of the last audit run against the host"""
+  last_audit_timestamp: String
+  last_poll_timestamp: String
+  last_poll_ip: String
+  initial_agent_checkin: String
+  reported_clone: Boolean
+
+  """Determines whether the  host has any execution alerts"""
+  has_execution_alerts: Boolean
+
+  """Determines whether the host has any presence alerts"""
+  has_presence_alerts: Boolean
+
+  """Determines whether the host is excluded from containment"""
+  excluded_from_containment: Boolean
+  stats: JSON
+  os: JSON
+
+  """System information of the host"""
+  sysinfo: JSON
+
+  """List of actions which can be performed on the entity"""
+  _actions: [JSON]
+
+  """The globally unique ID among all types"""
+  id: ID!
+}
+
+type Indicator implements Node {
+  _id: String
+
+  """
+  The partial API URL to this entity excluding the api prefix and version
+  """
+  url: String
+
+  """The indicator name as displayed in UI"""
+  name: String
+
+  """Information about who created an indicator as displayed in UI"""
+  created_by: String
+
+  """
+  Unique name or identifier of the indicator. This is the identifier used to reference this indicator in a URL
+  """
+  uri_name: String
+
+  """List of actions which can be performed on the entity"""
+  _actions: [JSON]
+
+  """The globally unique ID among all types"""
+  id: ID!
+}
+
+type IndicatorCategory implements Node {
+  _id: String
+  _revision: String
+  name: String
+  display_name: String
+  uri_name: String
+  url: String
+  retention_policy: String
+  ui_edit_policy: String
+  ui_signature_enabled: Boolean
+  ui_source_alerts_enabled: Boolean
+  _actions: [JSON]
+
+  """The globally unique ID among all types"""
+  id: ID!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""
+An object, that can be fetched by the globally unique ID among all types.
+"""
+interface Node {
+  """The globally unique ID among all types."""
+  id: ID!
+}
+
+type Query {
+  """Fetches an object that has globally unique ID among all types"""
+  node(
+    """The globally unique ID among all types"""
+    id: ID!
+  ): Node
+
+  """Get Alert by ID"""
+  alert(id: String!): Alert
+
+  """Get List of Alerts for All Hosts"""
+  alertsAllHosts(_id: String, agent___id: String, condition___id: String, source: String): [Alert]
+  host(id: String!): Host
+  allHosts: [Host]
+  indicatorByName(category: String!, indicator: String!): Indicator
+  IndicatorCategories: [IndicatorCategory]
+  IndicatorCategoryByName(category: String!): IndicatorCategory
+  script(id: String!): Script
+  scriptsAllHosts: [Script]
+  Search(id: String!): Search
+  SearchList: [Search]
+  Case(id: String!): Case
+  CasesList: [Case]
+  Version: Version
+}
+
+type Script implements Node {
+  _id: String
+  last_used_at: String
+  url: String
+  download: String
+  content: String
+  _actions: [JSON]
+
+  """The globally unique ID among all types"""
+  id: ID!
+}
+
+type Search implements Node {
+  _id: String
+  url: String
+  state: String
+  update_time: String
+  create_time: String
+  _revision: String
+  input_type: String
+  update_actor: JSON
+  create_actor: JSON
+  script: JSON
+  host_set: JSON
+  hosts: JSON
+  settings: JSON
+  stats: JSON
+  error: String
+
+  """List of actions which can be performed on the entity"""
+  _actions: [JSON]
+
+  """The globally unique ID among all types"""
+  id: ID!
+}
+
+type Version implements Node {
+  _id: String
+  msoVersion: String
+  applianceId: String
+  version: String
+
+  """The globally unique ID among all types"""
+  id: ID!
+}
